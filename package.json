@@ -22,7 +22,7 @@
     "typescript": "^2.4.2"
   },
   "lint-staged": {
-    "*.{ts}": [
+    "*.ts": [
       "prettier --write",
       "git add"
     ]
