@@ -1,12 +1,12 @@
-import * as passport from 'passport';
-import { Type } from '@nestjs/common/interfaces';
+import * as passport from "passport";
+import { Type } from "@nestjs/common";
 
 export abstract class AbstractStrategy {
   abstract validate(...args: any[]): any;
 }
 
 export function PassportStrategy<T extends Type<any> = any>(
-  Strategy: T,
+  Strategy: T
 ): Type<AbstractStrategy> {
   abstract class MixinStrategy extends Strategy {
     abstract validate(...args: any[]): any;
