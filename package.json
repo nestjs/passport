@@ -1,6 +1,6 @@
 {
   "name": "@nestjs/passport",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "Nest - modern, fast, powerful node.js web framework (@passport)",
   "author": "Kamil Mysliwiec",
   "license": "MIT",
@@ -27,8 +27,5 @@
       "prettier --write",
       "git add"
     ]
-  },
-  "dependencies": {
-    "@nestjs/common": "^5.0.0-rc.1"
   }
 }

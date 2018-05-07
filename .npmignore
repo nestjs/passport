@@ -1,6 +1,7 @@
 # source
-./lib
+lib
 index.ts
 package-lock.json
 tslint.json
 tsconfig.json
+.prettierrc

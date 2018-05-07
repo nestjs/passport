@@ -1,13 +1,14 @@
 import * as passport from "passport";
-import { Type } from "@nestjs/common";
+
+export interface Type<T> extends Function {
+  new (...args: any[]): T;
+}
 
 export abstract class AbstractStrategy {
   abstract validate(...args: any[]): any;
 }
 
-export function PassportStrategy<T extends Type<any> = any>(
-  Strategy: T
-): Type<AbstractStrategy> {
+export function PassportStrategy<T extends Type<any> = any>(Strategy: T): any {
   abstract class MixinStrategy extends Strategy {
     abstract validate(...args: any[]): any;
     constructor(...args: any[]) {
