@@ -1,4 +1,4 @@
-import { UnauthorizedException } from "@nestjs/common";
+import { UnauthorizedException } from '@nestjs/common';
 
 export interface AuthGuardOptions {
   session?: boolean;
@@ -8,7 +8,7 @@ export interface AuthGuardOptions {
 
 export const defaultOptions = {
   session: false,
-  property: "user",
+  property: 'user',
   callback: (err, user, info) => {
     if (err || !user) {
       throw err || new UnauthorizedException();

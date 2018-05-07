@@ -1,4 +1,4 @@
-import * as passport from "passport";
+import * as passport from 'passport';
 
 export interface Type<T> extends Function {
   new (...args: any[]): T;

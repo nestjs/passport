@@ -1,11 +1,11 @@
-import * as passport from "passport";
+import * as passport from 'passport';
 import {
   CanActivate,
   ExecutionContext,
   mixin,
   UnauthorizedException
-} from "@nestjs/common";
-import { defaultOptions, AuthGuardOptions } from "./options";
+} from '@nestjs/common';
+import { defaultOptions, AuthGuardOptions } from './options';
 
 export function AuthGuard(
   type,
