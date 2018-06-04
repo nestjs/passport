@@ -1,14 +1,11 @@
 import * as passport from 'passport';
+import { Type } from './interfaces';
 
-export interface Type<T> extends Function {
-  new (...args: any[]): T;
-}
-
-export abstract class AbstractStrategy {
-  abstract validate(...args: any[]): any;
-}
-
-export function PassportStrategy<T extends Type<any> = any>(Strategy: T): any {
+export function PassportStrategy<T extends Type<any> = any>(
+  Strategy: T
+): {
+  new (...args): T;
+} {
   abstract class MixinStrategy extends Strategy {
     abstract validate(...args: any[]): any;
     constructor(...args: any[]) {
