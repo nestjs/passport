@@ -2,7 +2,8 @@ import * as passport from 'passport';
 import { Type } from './interfaces';
 
 export function PassportStrategy<T extends Type<any> = any>(
-  Strategy: T
+  Strategy: T,
+  name?: string | undefined
 ): {
   new (...args): T;
 } {
@@ -10,7 +11,11 @@ export function PassportStrategy<T extends Type<any> = any>(
     abstract validate(...args: any[]): any;
     constructor(...args: any[]) {
       super(...args, (...params: any[]) => this.validate(...params));
-      passport.use(this as any);
+      if (name) {
+        passport.use(name, this as any);
+      } else {
+        passport.use(this as any);
+      }
     }
   }
   return MixinStrategy;

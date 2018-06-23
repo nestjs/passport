@@ -1,16 +1,12 @@
+import { CanActivate, ExecutionContext, mixin } from '@nestjs/common';
 import * as passport from 'passport';
-import {
-  CanActivate,
-  ExecutionContext,
-  mixin,
-  UnauthorizedException
-} from '@nestjs/common';
-import { defaultOptions, AuthGuardOptions } from './options';
+import { Type } from './interfaces';
+import { AuthGuardOptions, defaultOptions } from './options';
 
 export function AuthGuard(
   type,
-  options: AuthGuardOptions & any = defaultOptions
-) {
+  options: AuthGuardOptions & { [key: string]: any } = defaultOptions
+): Type<CanActivate> {
   options = { ...defaultOptions, ...options };
   const guard = mixin(
     class implements CanActivate {
@@ -21,11 +17,18 @@ export function AuthGuard(
           httpContext.getResponse()
         ];
         const passportFn = createPassportContext(request, response);
-        request[options.property || defaultOptions.property] = await passportFn(
-          type,
-          options
-        );
+        const user = await passportFn(type, options);
+        request[options.property || defaultOptions.property] = user;
         return true;
+      }
+
+      async logIn<TRequest extends { logIn: Function } = any>(
+        request: TRequest
+      ): Promise<void> {
+        const user = request[options.property || defaultOptions.property];
+        await new Promise((resolve, reject) =>
+          request.logIn(user, err => (err ? reject(err) : resolve()))
+        );
       }
     }
   );
