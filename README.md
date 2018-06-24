@@ -26,7 +26,7 @@
 
 ## Description
 
-This is a [Passport](http://www.passportjs.org/) utilities module for [Nest](https://github.com/nestjs/nest).
+The [Passport](http://www.passportjs.org/) utilities module for [Nest](https://github.com/nestjs/nest).
 
 ## Installation
 
