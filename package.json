@@ -1,21 +1,22 @@
 {
   "name": "@nestjs/passport",
-  "version": "1.1.0",
-  "description": "Nest - modern, fast, powerful node.js web framework (@passport)",
+  "version": "5.0.0",
+  "description":
+    "Nest - modern, fast, powerful node.js web framework (@passport)",
   "author": "Kamil Mysliwiec",
   "license": "MIT",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "rm -rf dist && tsc -p tsconfig.json",
     "precommit": "lint-staged",
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public"
   },
   "peerDependencies": {
-    "@nestjs/common": "^5.0.0",
+    "@nestjs/common": "^5.2.0",
     "passport": "^0.4.0"
   },
   "devDependencies": {
-    "@nestjs/common": "^5.0.1",
+    "@nestjs/common": "^5.2.0",
     "@types/node": "^7.0.41",
     "@types/passport": "^0.4.5",
     "husky": "^0.14.3",
@@ -25,9 +26,6 @@
     "typescript": "^2.4.2"
   },
   "lint-staged": {
-    "*.ts": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.ts": ["prettier --write", "git add"]
   }
 }

@@ -7,7 +7,7 @@ export abstract class PassportSerializer {
   constructor() {
     passport.serializeUser((user, done) => this.serializeUser(user, done));
     passport.deserializeUser((payload, done) =>
-      this.deserializeUser(payload, done),
+      this.deserializeUser(payload, done)
     );
   }
 }
