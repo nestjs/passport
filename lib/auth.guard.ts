@@ -83,5 +83,5 @@ const createPassportContext = (request, response) => (
       } catch (err) {
         reject(err);
       }
-    })(request, response, resolve)
+    })(request, response, err => (err ? reject(err) : resolve))
   );
