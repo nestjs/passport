@@ -35,10 +35,9 @@ function createAuthGuard(type?: string): Type<CanActivate> {
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
       const options = { ...defaultOptions, ...this.options };
-      const httpContext = context.switchToHttp();
       const [request, response] = [
-        httpContext.getRequest(),
-        httpContext.getResponse()
+        this.getRequest(context),
+        context.switchToHttp().getResponse()
       ];
       const passportFn = createPassportContext(request, response);
       const user = await passportFn(
@@ -48,6 +47,10 @@ function createAuthGuard(type?: string): Type<CanActivate> {
       );
       request[options.property || defaultOptions.property] = user;
       return true;
+    }
+
+    getRequest<T = any>(context: ExecutionContext): T {
+      return context.switchToHttp().getRequest();
     }
 
     async logIn<TRequest extends { logIn: Function } = any>(
