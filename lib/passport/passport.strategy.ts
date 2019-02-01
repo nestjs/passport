@@ -13,7 +13,12 @@ export function PassportStrategy<T extends Type<any> = any>(
       const callback = async (...params: any[]) => {
         const done = params[params.length - 1];
         try {
-          done(null, await this.validate(...params));
+          const validateResult = await this.validate(...params));
+          if (Array.isArray(validateResult)) {
+            done(null, ...validateResult);
+          } else {
+            done(null, validateResult);
+          }
         } catch (err) {
           done(err, null);
         }
