@@ -18,7 +18,7 @@
   "devDependencies": {
     "@nestjs/common": "6.0.0",
     "@types/node": "11.11.3",
-    "@types/passport": "0.4.5",
+    "@types/passport": "1.0.0",
     "husky": "0.14.3",
     "lint-staged": "8.1.5",
     "passport": "0.4.0",
