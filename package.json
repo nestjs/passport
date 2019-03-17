@@ -22,7 +22,7 @@
     "husky": "0.14.3",
     "lint-staged": "7.0.0",
     "passport": "0.4.0",
-    "prettier": "1.11.1",
+    "prettier": "1.16.4",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.4.0",
     "typescript": "3.3.3333"
