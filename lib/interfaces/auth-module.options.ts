@@ -1,7 +1,7 @@
 import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
 
 export interface IAuthModuleOptions<T = any> {
-  defaultStrategy?: string;
+  defaultStrategy?: string | string[];
   session?: boolean;
   property?: string;
   [key: string]: any;
@@ -22,7 +22,7 @@ export interface AuthModuleAsyncOptions
 }
 
 export class AuthModuleOptions implements IAuthModuleOptions {
-  defaultStrategy?: string;
+  defaultStrategy?: string | string[];
   session?: boolean;
   property?: string;
 }
