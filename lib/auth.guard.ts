@@ -16,7 +16,7 @@ export type IAuthGuard = CanActivate & {
   logIn<TRequest extends { logIn: Function } = any>(
     request: TRequest
   ): Promise<void>;
-  handleRequest<TUser = any>(err, user, info): TUser;
+  handleRequest<TUser = any>(err, user, info, context): TUser;
 };
 export const AuthGuard: (type?: string) => Type<IAuthGuard> = memoize(
   createAuthGuard
@@ -43,7 +43,7 @@ function createAuthGuard(type?: string): Type<CanActivate> {
       const user = await passportFn(
         type || this.options.defaultStrategy,
         options,
-        (err, info, user) => this.handleRequest(err, info, user)
+        (err, user, info) => this.handleRequest(err, user, info, context)
       );
       request[options.property || defaultOptions.property] = user;
       return true;
@@ -62,7 +62,7 @@ function createAuthGuard(type?: string): Type<CanActivate> {
       );
     }
 
-    handleRequest(err, user, info): TUser {
+    handleRequest(err, user, info, context): TUser {
       if (err || !user) {
         throw err || new UnauthorizedException();
       }
