@@ -1,11 +1,12 @@
 import * as passport from 'passport';
 import { Type } from '../interfaces';
+import { Value } from '../types';
 
 export function PassportStrategy<T extends Type<any> = any>(
   Strategy: T,
   name?: string | undefined
 ): {
-  new (...args): T;
+  new (...args): Value<T>;
 } {
   abstract class MixinStrategy extends Strategy {
     abstract validate(...args: any[]): any;
