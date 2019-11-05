@@ -25,7 +25,7 @@
     "prettier": "1.18.2",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.5.3",
-    "typescript": "3.6.4"
+    "typescript": "3.7.2"
   },
   "lint-staged": {
     "*.ts": ["prettier --write", "git add"]
