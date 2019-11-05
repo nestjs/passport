@@ -5,7 +5,7 @@ export function PassportStrategy<T extends Type<any> = any>(
   Strategy: T,
   name?: string | undefined
 ): {
-  new (...args): T;
+  new (...args): InstanceType<T>;
 } {
   abstract class MixinStrategy extends Strategy {
     abstract validate(...args: any[]): any;
