@@ -5,7 +5,7 @@
   "author": "Kamil Mysliwiec",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "build": "rimraf dist && tsc -p tsconfig.json",
     "precommit": "lint-staged",
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public"
@@ -23,6 +23,7 @@
     "passport": "0.4.0",
     "prettier": "1.19.1",
     "reflect-metadata": "0.1.13",
+    "rimraf": "^3.0.0",
     "rxjs": "6.5.3",
     "typescript": "3.7.2"
   },
