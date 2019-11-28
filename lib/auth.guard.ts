@@ -63,6 +63,14 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
     }
 
     handleRequest(err, user, info, context): TUser {
+      if (!user && /^Basic/.test(info)) {
+        context.getResponse().setHeader('WWW-Authenticate', info);
+        context
+          .getResponse()
+          .status(401)
+          .send();
+        return;
+      }
       if (err || !user) {
         throw err || new UnauthorizedException();
       }
