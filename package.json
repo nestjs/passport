@@ -1,8 +1,7 @@
 {
   "name": "@nestjs/passport",
-  "version": "6.1.0",
-  "description":
-    "Nest - modern, fast, powerful node.js web framework (@passport)",
+  "version": "6.1.1",
+  "description": "Nest - modern, fast, powerful node.js web framework (@passport)",
   "author": "Kamil Mysliwiec",
   "license": "MIT",
   "scripts": {
@@ -28,6 +27,9 @@
     "typescript": "3.7.2"
   },
   "lint-staged": {
-    "*.ts": ["prettier --write", "git add"]
+    "*.ts": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
