@@ -15,7 +15,7 @@
     "passport": "^0.4.0"
   },
   "devDependencies": {
-    "@nestjs/common": "6.10.3",
+    "@nestjs/common": "6.10.4",
     "@types/node": "11.15.0",
     "@types/passport": "1.0.2",
     "husky": "3.1.0",
