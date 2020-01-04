@@ -26,10 +26,12 @@ const NO_STRATEGY_ERROR = `In order to use "defaultStrategy", please, ensure to 
 
 function createAuthGuard(type?: string | string[]): Type<CanActivate> {
   class MixinAuthGuard<TUser = any> implements CanActivate {
+    private readonly logger = new Logger('AuthGuard');
+
     constructor(@Optional() protected readonly options?: AuthModuleOptions) {
       this.options = this.options || {};
       if (!type && !this.options.defaultStrategy) {
-        new Logger('AuthGuard').error(NO_STRATEGY_ERROR);
+        this.logger.error(NO_STRATEGY_ERROR);
       }
     }
 
@@ -64,6 +66,8 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
 
     handleRequest(err, user, info, context): TUser {
       if (err || !user) {
+        err && this.logger.error(err);
+        info && this.logger.error(info.toString());
         throw err || new UnauthorizedException();
       }
       return user;
