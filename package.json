@@ -19,7 +19,7 @@
     "@types/node": "11.15.0",
     "@types/passport": "1.0.2",
     "husky": "4.2.0",
-    "lint-staged": "10.0.1",
+    "lint-staged": "10.0.2",
     "passport": "0.4.1",
     "prettier": "1.19.1",
     "reflect-metadata": "0.1.13",
