@@ -18,7 +18,7 @@
     "@nestjs/common": "6.11.6",
     "@types/node": "11.15.0",
     "@types/passport": "1.0.2",
-    "husky": "4.2.1",
+    "husky": "4.2.2",
     "lint-staged": "10.0.7",
     "passport": "0.4.1",
     "prettier": "1.19.1",
