@@ -3,10 +3,16 @@ import * as passport from 'passport';
 export abstract class PassportSerializer {
   abstract serializeUser(user: any, done: Function);
   abstract deserializeUser(payload: any, done: Function);
+  getPassportInstance() {
+    return passport;
+  }
 
   constructor() {
-    passport.serializeUser((user, done) => this.serializeUser(user, done));
-    passport.deserializeUser((payload, done) =>
+    const passportInstance = this.getPassportInstance();
+    passportInstance.serializeUser((user, done) =>
+      this.serializeUser(user, done)
+    );
+    passportInstance.deserializeUser((payload, done) =>
       this.deserializeUser(payload, done)
     );
   }
