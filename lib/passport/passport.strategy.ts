@@ -9,9 +9,6 @@ export function PassportStrategy<T extends Type<any> = any>(
 } {
   abstract class MixinStrategy extends Strategy {
     abstract validate(...args: any[]): any;
-    getPassportInstance() {
-      return passport;
-    }
 
     constructor(...args: any[]) {
       const callback = async (...params: any[]) => {
@@ -35,6 +32,10 @@ export function PassportStrategy<T extends Type<any> = any>(
       } else {
         passportInstance.use(this as any);
       }
+    }
+
+    getPassportInstance() {
+      return passport;
     }
   }
   return MixinStrategy;
