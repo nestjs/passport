@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   CanActivate,
   ExecutionContext,
@@ -16,7 +17,7 @@ export type IAuthGuard = CanActivate & {
   logIn<TRequest extends { logIn: Function } = any>(
     request: TRequest
   ): Promise<void>;
-  handleRequest<TUser = any>(err, user, info, context): TUser;
+  handleRequest<TUser = any>(err, user, info, context, status?): TUser;
 };
 export const AuthGuard: (
   type?: string | string[]
@@ -43,7 +44,8 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
       const user = await passportFn(
         type || this.options.defaultStrategy,
         options,
-        (err, user, info) => this.handleRequest(err, user, info, context)
+        (err, user, info, status) =>
+          this.handleRequest(err, user, info, context, status)
       );
       request[options.property || defaultOptions.property] = user;
       return true;
@@ -62,7 +64,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
       );
     }
 
-    handleRequest(err, user, info, context): TUser {
+    handleRequest(err, user, info, context, status): TUser {
       if (err || !user) {
         throw err || new UnauthorizedException();
       }
@@ -79,10 +81,10 @@ const createPassportContext = (request, response) => (
   callback: Function
 ) =>
   new Promise((resolve, reject) =>
-    passport.authenticate(type, options, (err, user, info) => {
+    passport.authenticate(type, options, (err, user, info, status) => {
       try {
         request.authInfo = info;
-        return resolve(callback(err, user, info));
+        return resolve(callback(err, user, info, status));
       } catch (err) {
         reject(err);
       }
