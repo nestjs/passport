@@ -1,36 +1,57 @@
 {
   "name": "@nestjs/passport",
-  "version": "6.1.1",
+  "version": "6.2.0",
   "description": "Nest - modern, fast, powerful node.js web framework (@passport)",
   "author": "Kamil Mysliwiec",
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.json",
+    "format": "prettier --write \"lib/**/*.ts\"",
+    "lint": "eslint 'lib/**/*.ts' --fix",
     "precommit": "lint-staged",
     "prepublish:npm": "npm run build",
-    "publish:npm": "npm publish --access public"
+    "publish:npm": "npm publish --access public",
+    "prerelease": "npm run build",
+    "release": "release-it"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.0.0",
     "passport": "^0.4.0"
   },
   "devDependencies": {
-    "@nestjs/common": "6.11.7",
+    "@commitlint/cli": "8.3.5",
+    "@commitlint/config-angular": "8.3.4",
+    "@nestjs/common": "6.11.8",
     "@types/node": "11.15.0",
     "@types/passport": "1.0.2",
+    "@typescript-eslint/eslint-plugin": "2.20.0",
+    "@typescript-eslint/parser": "2.20.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.0",
+    "eslint-plugin-import": "2.20.1",
     "husky": "4.2.3",
     "lint-staged": "10.0.7",
     "passport": "0.4.1",
     "prettier": "1.19.1",
+    "release-it": "12.6.0",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "6.5.4",
-    "typescript": "3.7.5"
+    "typescript": "3.8.2"
   },
   "lint-staged": {
     "*.ts": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nestjs/passport"
   }
 }

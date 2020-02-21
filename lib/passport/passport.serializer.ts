@@ -16,7 +16,8 @@ export abstract class PassportSerializer<
   ): Promise<UserType> | UserType;
 
   constructor() {
-    passport.serializeUser(
+    const passportInstance = this.getPassportInstance();
+    passportInstance.serializeUser(
       async (
         req: RequestType,
         user: UserType,
@@ -29,7 +30,7 @@ export abstract class PassportSerializer<
         }
       }
     );
-    passport.deserializeUser(
+    passportInstance.deserializeUser(
       async (
         req: RequestType,
         payload: PayloadType,
@@ -42,5 +43,9 @@ export abstract class PassportSerializer<
         }
       }
     );
+  }
+
+  getPassportInstance() {
+    return passport;
   }
 }
