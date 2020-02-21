@@ -5,9 +5,16 @@ export abstract class PassportSerializer {
   abstract deserializeUser(payload: any, done: Function);
 
   constructor() {
-    passport.serializeUser((user, done) => this.serializeUser(user, done));
-    passport.deserializeUser((payload, done) =>
+    const passportInstance = this.getPassportInstance();
+    passportInstance.serializeUser((user, done) =>
+      this.serializeUser(user, done)
+    );
+    passportInstance.deserializeUser((payload, done) =>
       this.deserializeUser(payload, done)
     );
+  }
+
+  getPassportInstance() {
+    return passport;
   }
 }
