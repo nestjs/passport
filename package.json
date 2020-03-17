@@ -1,6 +1,6 @@
 {
   "name": "@nestjs/passport",
-  "version": "6.2.0",
+  "version": "7.0.0",
   "description": "Nest - modern, fast, powerful node.js web framework (@passport)",
   "author": "Kamil Mysliwiec",
   "license": "MIT",
@@ -15,17 +15,17 @@
     "release": "release-it"
   },
   "peerDependencies": {
-    "@nestjs/common": "^6.0.0",
+    "@nestjs/common": "^6.0.0 || ^7.0.0",
     "passport": "^0.4.0"
   },
   "devDependencies": {
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-angular": "8.3.4",
-    "@nestjs/common": "6.11.11",
+    "@nestjs/common": "7.0.3",
     "@types/node": "11.15.0",
-    "@types/passport": "1.0.2",
-    "@typescript-eslint/eslint-plugin": "2.22.0",
-    "@typescript-eslint/parser": "2.22.0",
+    "@types/passport": "1.0.3",
+    "@typescript-eslint/eslint-plugin": "2.24.0",
+    "@typescript-eslint/parser": "2.24.0",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.0",
     "eslint-plugin-import": "2.20.1",
@@ -33,7 +33,7 @@
     "lint-staged": "10.0.8",
     "passport": "0.4.1",
     "prettier": "1.19.1",
-    "release-it": "12.6.3",
+    "release-it": "13.1.1",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "6.5.4",
