@@ -5,12 +5,12 @@ export function PassportStrategy<T extends Type<any> = any>(
   Strategy: T,
   name?: string | undefined
 ): {
-  new (...args): InstanceType<T>;
+  new (...args: ConstructorParameters<T>): InstanceType<T>;
 } {
   abstract class MixinStrategy extends Strategy {
     abstract validate(...args: any[]): any;
 
-    constructor(...args: any[]) {
+    constructor(...args: ConstructorParameters<T>) {
       const callback = async (...params: any[]) => {
         const done = params[params.length - 1];
         try {
