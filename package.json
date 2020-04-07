@@ -33,7 +33,7 @@
     "lint-staged": "10.1.2",
     "passport": "0.4.1",
     "prettier": "2.0.4",
-    "release-it": "13.5.1",
+    "release-it": "13.5.2",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "6.5.5",
