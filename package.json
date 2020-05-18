@@ -30,7 +30,7 @@
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-import": "2.20.2",
     "husky": "4.2.5",
-    "lint-staged": "10.2.3",
+    "lint-staged": "10.2.4",
     "passport": "0.4.1",
     "prettier": "2.0.5",
     "release-it": "13.6.1",
