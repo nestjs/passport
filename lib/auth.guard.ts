@@ -9,7 +9,10 @@ import {
 } from '@nestjs/common';
 import * as passport from 'passport';
 import { Type } from './interfaces';
-import { AuthModuleOptions } from './interfaces/auth-module.options';
+import {
+  AuthModuleOptions,
+  IAuthModuleOptions
+} from './interfaces/auth-module.options';
 import { defaultOptions } from './options';
 import { memoize } from './utils/memoize.util';
 
@@ -18,6 +21,7 @@ export type IAuthGuard = CanActivate & {
     request: TRequest
   ): Promise<void>;
   handleRequest<TUser = any>(err, user, info, context, status?): TUser;
+  getAuthenticateOptions(context): IAuthModuleOptions | undefined;
 };
 export const AuthGuard: (
   type?: string | string[]
@@ -35,7 +39,11 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
     }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-      const options = { ...defaultOptions, ...this.options };
+      const options = {
+        ...defaultOptions,
+        ...this.options,
+        ...this.getAuthenticateOptions(context)
+      };
       const [request, response] = [
         this.getRequest(context),
         context.switchToHttp().getResponse()
@@ -60,7 +68,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
     ): Promise<void> {
       const user = request[this.options.property || defaultOptions.property];
       await new Promise((resolve, reject) =>
-        request.logIn(user, err => (err ? reject(err) : resolve()))
+        request.logIn(user, (err) => (err ? reject(err) : resolve()))
       );
     }
 
@@ -69,6 +77,12 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
         throw err || new UnauthorizedException();
       }
       return user;
+    }
+
+    getAuthenticateOptions(
+      context: ExecutionContext
+    ): IAuthModuleOptions | undefined {
+      return undefined;
     }
   }
   const guard = mixin(MixinAuthGuard);
@@ -88,5 +102,5 @@ const createPassportContext = (request, response) => (
       } catch (err) {
         reject(err);
       }
-    })(request, response, err => (err ? reject(err) : resolve()))
+    })(request, response, (err) => (err ? reject(err) : resolve()))
   );
