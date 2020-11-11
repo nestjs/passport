@@ -24,8 +24,15 @@ export function PassportStrategy<T extends Type<any> = any>(
           done(err, null);
         }
       };
-
-      super(...args, (...params: any[]) => callback(...params));
+      const arity = new.target.prototype.validate.length;
+      const proxy = new Proxy(callback, {
+        get: function (target, name, receiver) {
+          return name === 'length'
+            ? arity
+            : Reflect.get(target, name, receiver);
+        }
+      });
+      super(...args, proxy);
       const passportInstance = this.getPassportInstance();
       if (name) {
         passportInstance.use(name, this as any);
