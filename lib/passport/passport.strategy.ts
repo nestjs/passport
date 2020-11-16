@@ -26,7 +26,9 @@ export function PassportStrategy<T extends Type<any> = any>(
       };
 
       super(...args, callback);
-      Object.defineProperty(callback, 'length', { value: this.validate.length + 1 });
+      Object.defineProperty(callback, 'length', {
+        value: this.validate.length + 1
+      });
       const passportInstance = this.getPassportInstance();
       if (name) {
         passportInstance.use(name, this as any);
