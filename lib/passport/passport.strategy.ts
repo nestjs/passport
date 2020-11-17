@@ -25,12 +25,13 @@ export function PassportStrategy<T extends Type<any> = any>(
         }
       };
 
-      super(...args, callback);
-      if (this.validate) {
+      const validate = new.target.prototype.validate;
+      if (validate) {
         Object.defineProperty(callback, 'length', {
-          value: this.validate.length + 1
+          value: validate.length + 1
         });
       }
+      super(...args, callback);
 
       const passportInstance = this.getPassportInstance();
       if (name) {
