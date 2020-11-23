@@ -28,7 +28,7 @@ export function PassportStrategy<T extends Type<any> = any>(
       const validate = new.target?.prototype?.validate;
       if (validate) {
         Object.defineProperty(callback, 'length', {
-          value: validate.length + 1
+          value: validate.length
         });
       }
       super(...args, callback);
