@@ -23,7 +23,7 @@
     "@commitlint/config-angular": "11.0.0",
     "@nestjs/common": "7.6.11",
     "@types/node": "11.15.0",
-    "@types/passport": "1.0.5",
+    "@types/passport": "1.0.6",
     "@typescript-eslint/eslint-plugin": "4.14.2",
     "@typescript-eslint/parser": "4.14.2",
     "eslint": "7.19.0",
