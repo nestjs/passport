@@ -22,6 +22,7 @@ export type IAuthGuard = CanActivate & {
   ): Promise<void>;
   handleRequest<TUser = any>(err, user, info, context, status?): TUser;
   getAuthenticateOptions(context): IAuthModuleOptions | undefined;
+  getRequest<T = any>(context: ExecutionContext): T;
 };
 export const AuthGuard: (
   type?: string | string[]
@@ -29,7 +30,7 @@ export const AuthGuard: (
 
 const NO_STRATEGY_ERROR = `In order to use "defaultStrategy", please, ensure to import PassportModule in each place where AuthGuard() is being used. Otherwise, passport won't work correctly.`;
 
-function createAuthGuard(type?: string | string[]): Type<CanActivate> {
+function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
   class MixinAuthGuard<TUser = any> implements CanActivate {
     constructor(@Optional() protected readonly options?: AuthModuleOptions) {
       this.options = this.options || {};
