@@ -22,7 +22,7 @@
     "@commitlint/cli": "11.0.0",
     "@commitlint/config-angular": "11.0.0",
     "@nestjs/common": "7.6.12",
-    "@types/node": "11.15.44",
+    "@types/node": "11.15.45",
     "@types/passport": "1.0.6",
     "@typescript-eslint/eslint-plugin": "4.15.0",
     "@typescript-eslint/parser": "4.15.0",
