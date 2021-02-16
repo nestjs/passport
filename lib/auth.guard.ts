@@ -67,7 +67,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
       request: TRequest
     ): Promise<void> {
       const user = request[this.options.property || defaultOptions.property];
-      await new Promise((resolve, reject) =>
+      await new Promise<void>((resolve, reject) =>
         request.logIn(user, (err) => (err ? reject(err) : resolve()))
       );
     }
@@ -94,7 +94,7 @@ const createPassportContext = (request, response) => (
   options,
   callback: Function
 ) =>
-  new Promise((resolve, reject) =>
+  new Promise<void>((resolve, reject) =>
     passport.authenticate(type, options, (err, user, info, status) => {
       try {
         request.authInfo = info;
