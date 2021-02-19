@@ -20,7 +20,7 @@ export type IAuthGuard = CanActivate & {
   logIn<TRequest extends { logIn: Function } = any>(
     request: TRequest
   ): Promise<void>;
-  handleRequest<TUser = any>(err, user, info, context, status?): TUser;
+  handleRequest<TUser = any>(err, user, info, context, status?): TUser | Promise<TUser>;
   getAuthenticateOptions(context): IAuthModuleOptions | undefined;
 };
 export const AuthGuard: (
