@@ -20,7 +20,7 @@ export type IAuthGuard = CanActivate & {
   logIn<TRequest extends { logIn: Function } = any>(
     request: TRequest
   ): Promise<void>;
-  handleRequest<TUser = any>(err, user, info, context, status?): TUser;
+  handleRequest<TUser = any>(err, user, info, context, status?): TUser | Promise<TUser>;
   getAuthenticateOptions(context): IAuthModuleOptions | undefined;
 };
 export const AuthGuard: (
@@ -72,7 +72,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
       );
     }
 
-    handleRequest(err, user, info, context, status): TUser {
+    handleRequest(err, user, info, context, status): TUser | Promise<TUser> {
       if (err || !user) {
         throw err || new UnauthorizedException();
       }
