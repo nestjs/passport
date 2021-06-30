@@ -46,7 +46,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
       };
       const [request, response] = [
         this.getRequest(context),
-        context.switchToHttp().getResponse()
+        this.getResponse(context)
       ];
       const passportFn = createPassportContext(request, response);
       const user = await passportFn(
@@ -61,6 +61,10 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
 
     getRequest<T = any>(context: ExecutionContext): T {
       return context.switchToHttp().getRequest();
+    }
+
+    getResponse<T = any>(context: ExecutionContext): T {
+      return context.switchToHttp().getResponse();
     }
 
     async logIn<TRequest extends { logIn: Function } = any>(
