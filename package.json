@@ -15,13 +15,13 @@
     "release": "release-it"
   },
   "peerDependencies": {
-    "@nestjs/common": "^6.0.0 || ^7.0.0",
+    "@nestjs/common": "^6.0.0 || ^7.0.0 || ^8.0.0",
     "passport": "^0.4.0"
   },
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
     "@commitlint/config-angular": "12.1.4",
-    "@nestjs/common": "7.6.18",
+    "@nestjs/common": "8.0.0",
     "@types/node": "14.17.4",
     "@types/passport": "1.0.6",
     "@typescript-eslint/eslint-plugin": "4.28.2",
