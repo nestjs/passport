@@ -42,7 +42,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
       const options = {
         ...defaultOptions,
         ...this.options,
-        ...this.getAuthenticateOptions(context)
+        ...await this.getAuthenticateOptions(context)
       };
       const [request, response] = [
         this.getRequest(context),
@@ -85,7 +85,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
 
     getAuthenticateOptions(
       context: ExecutionContext
-    ): IAuthModuleOptions | undefined {
+    ): Promise<IAuthModuleOptions> | IAuthModuleOptions | undefined {
       return undefined;
     }
   }
