@@ -16,7 +16,7 @@
   },
   "peerDependencies": {
     "@nestjs/common": "^6.0.0 || ^7.0.0 || ^8.0.0",
-    "passport": "^0.4.0"
+    "passport": "^0.4.0 || ^0.5.0"
   },
   "devDependencies": {
     "@commitlint/cli": "13.2.1",
@@ -31,7 +31,7 @@
     "eslint-plugin-import": "2.25.2",
     "husky": "7.0.2",
     "lint-staged": "11.2.3",
-    "passport": "0.4.1",
+    "passport": "0.5.0",
     "prettier": "2.4.1",
     "release-it": "14.11.6",
     "reflect-metadata": "0.1.13",
