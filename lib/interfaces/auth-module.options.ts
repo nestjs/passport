@@ -1,4 +1,4 @@
-import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
+import { ModuleMetadata, Type } from '@nestjs/common';
 
 export interface IAuthModuleOptions<T = any> {
   defaultStrategy?: string | string[];
