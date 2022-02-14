@@ -1,9 +1,14 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { spec, request } from 'pactum';
-import { AppModule } from './app.module';
+import { AppModule as WithRegisterModule } from '../with-register/app.module';
+import { AppModule as WithoutRegisterModule } from '../without-register/app.module';
 
-describe('Passport Module', () => {
+describe.each`
+  AppModule                | RegisterUse
+  ${WithRegisterModule}    | ${'with'}
+  ${WithoutRegisterModule} | ${'without'}
+`('Passport Module $RegisterUse register()', ({ AppModule }) => {
   let app: INestApplication;
 
   beforeAll(async () => {
