@@ -22,7 +22,7 @@
   "devDependencies": {
     "@commitlint/cli": "16.2.1",
     "@commitlint/config-angular": "16.2.1",
-    "@nestjs/common": "8.2.6",
+    "@nestjs/common": "8.3.0",
     "@types/node": "17.0.17",
     "@nestjs/core": "8.3.0",
     "@nestjs/jwt": "8.0.0",
