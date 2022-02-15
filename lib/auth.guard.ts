@@ -31,6 +31,7 @@ const NO_STRATEGY_ERROR = `In order to use "defaultStrategy", please, ensure to 
 
 function createAuthGuard(type?: string | string[]): Type<CanActivate> {
   class MixinAuthGuard<TUser = any> implements CanActivate {
+    @Optional()
     @Inject(AuthModuleOptions)
     protected options: AuthModuleOptions;
     constructor(@Optional() options?: AuthModuleOptions) {
