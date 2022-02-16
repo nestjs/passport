@@ -33,7 +33,8 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
   class MixinAuthGuard<TUser = any> implements CanActivate {
     @Optional()
     @Inject(AuthModuleOptions)
-    protected options: AuthModuleOptions;
+    protected options: AuthModuleOptions = {};
+
     constructor(@Optional() options?: AuthModuleOptions) {
       this.options = options ?? this.options;
       if (!type && !this.options.defaultStrategy) {
