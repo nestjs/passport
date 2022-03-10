@@ -105,6 +105,7 @@ const createPassportContext =
           request.authInfo = info;
           return resolve(callback(err, user, info, status));
         } catch (err) {
+          err.response.message = `${err.response.message} (${info})`;
           reject(err);
         }
       })(request, response, (err) => (err ? reject(err) : resolve()))
