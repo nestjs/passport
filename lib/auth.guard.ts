@@ -34,11 +34,13 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
     @Optional()
     @Inject(AuthModuleOptions)
     protected options: AuthModuleOptions = {};
+    
+    protected logger: Logger = new Logger('AuthGuard');
 
     constructor(@Optional() options?: AuthModuleOptions) {
       this.options = options ?? this.options;
       if (!type && !this.options.defaultStrategy) {
-        new Logger('AuthGuard').error(NO_STRATEGY_ERROR);
+        this.logger.error(NO_STRATEGY_ERROR);
       }
     }
 
@@ -82,6 +84,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
 
     handleRequest(err, user, info, context, status): TUser {
       if (err || !user) {
+        this.logger.error(info);
         throw err || new UnauthorizedException();
       }
       return user;
@@ -105,7 +108,6 @@ const createPassportContext =
           request.authInfo = info;
           return resolve(callback(err, user, info, status));
         } catch (err) {
-          new Logger('AuthGuard').error(`${err.response.message} (${info})`);
           reject(err);
         }
       })(request, response, (err) => (err ? reject(err) : resolve()))
