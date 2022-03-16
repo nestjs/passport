@@ -35,7 +35,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
     @Inject(AuthModuleOptions)
     protected options: AuthModuleOptions = {};
     
-    protected logger: Logger = new Logger('AuthGuard');
+    protected logger = new Logger('AuthGuard');
 
     constructor(@Optional() options?: AuthModuleOptions) {
       this.options = options ?? this.options;
