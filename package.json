@@ -39,7 +39,7 @@
     "eslint-plugin-import": "2.26.0",
     "husky": "7.0.4",
     "lint-staged": "12.4.1",
-    "jest": "27.5.1",
+    "jest": "28.0.3",
     "pactum": "3.1.6",
     "passport": "0.5.2",
     "passport-jwt": "4.0.0",
@@ -49,7 +49,7 @@
     "release-it": "15.0.0",
     "rimraf": "3.0.2",
     "rxjs": "7.5.5",
-    "ts-jest": "27.1.4",
+    "ts-jest": "28.0.0",
     "typescript": "4.6.4"
   },
   "lint-staged": {
