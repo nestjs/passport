@@ -25,7 +25,7 @@
     "@nestjs/common": "8.4.5",
     "@types/node": "17.0.17",
     "@nestjs/core": "8.4.5",
-    "@nestjs/jwt": "8.0.0",
+    "@nestjs/jwt": "8.0.1",
     "@nestjs/platform-express": "8.4.5",
     "@nestjs/testing": "8.4.5",
     "@types/jest": "27.5.1",
