@@ -29,7 +29,7 @@
     "@nestjs/platform-express": "8.4.6",
     "@nestjs/testing": "8.4.6",
     "@types/jest": "27.5.2",
-    "@types/passport": "1.0.7",
+    "@types/passport": "1.0.8",
     "@types/passport-jwt": "3.0.6",
     "@types/passport-local": "1.0.34",
     "@typescript-eslint/eslint-plugin": "5.27.0",
