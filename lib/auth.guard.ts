@@ -21,8 +21,8 @@ export type IAuthGuard = CanActivate & {
   logIn<TRequest extends { logIn: Function } = any>(
     request: TRequest
   ): Promise<void>;
-  handleRequest<TUser = any>(err, user, info, context, status?): TUser;
-  getAuthenticateOptions(context): IAuthModuleOptions | undefined;
+  handleRequest<TUser = any>(err, user, info, context: ExecutionContext, status?): TUser;
+  getAuthenticateOptions(context: ExecutionContext): IAuthModuleOptions | undefined;
 };
 export const AuthGuard: (type?: string | string[]) => Type<IAuthGuard> =
   memoize(createAuthGuard);
