@@ -25,7 +25,7 @@
     "@nestjs/common": "9.0.1",
     "@types/node": "17.0.17",
     "@nestjs/core": "9.0.1",
-    "@nestjs/jwt": "8.0.1",
+    "@nestjs/jwt": "9.0.0",
     "@nestjs/platform-express": "9.0.1",
     "@nestjs/testing": "9.0.1",
     "@types/jest": "28.1.4",
