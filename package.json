@@ -28,7 +28,7 @@
     "@nestjs/jwt": "9.0.0",
     "@nestjs/platform-express": "9.0.3",
     "@nestjs/testing": "9.0.3",
-    "@types/jest": "28.1.4",
+    "@types/jest": "28.1.5",
     "@types/passport": "1.0.9",
     "@types/passport-jwt": "3.0.6",
     "@types/passport-local": "1.0.34",
