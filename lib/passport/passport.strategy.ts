@@ -24,10 +24,10 @@ export function PassportStrategy<T extends Type<any> = any>(
           done(err, null);
         }
       };
-      /** 
+      /**
        * Commented out due to the regression it introduced
        * Read more here: https://github.com/nestjs/passport/issues/446
-       
+
         const validate = new.target?.prototype?.validate;
         if (validate) {
           Object.defineProperty(callback, 'length', {
