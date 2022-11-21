@@ -107,5 +107,5 @@ const createPassportContext =
         } catch (err) {
           reject(err);
         }
-      })(request, response, (err) => (err ? reject(err) : resolve()))
+      })(request, response, (err) => (err ? reject(err) : resolve(request[options.property || defaultOptions.property])))
     );
