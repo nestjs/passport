@@ -43,7 +43,7 @@
     "lint-staged": "13.1.0",
     "pactum": "3.3.2",
     "passport": "0.6.0",
-    "passport-jwt": "4.0.0",
+    "passport-jwt": "4.0.1",
     "passport-local": "1.0.0",
     "prettier": "2.8.1",
     "reflect-metadata": "0.1.13",
