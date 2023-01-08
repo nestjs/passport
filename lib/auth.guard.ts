@@ -10,19 +10,25 @@ import {
 } from '@nestjs/common';
 import * as passport from 'passport';
 import { Type } from './interfaces';
-import {
-  AuthModuleOptions,
-  IAuthModuleOptions
-} from './interfaces/auth-module.options';
+import { PassportModuleOptions } from './interfaces/auth-module.options';
 import { defaultOptions } from './options';
+import { MODULE_OPTIONS_TOKEN } from './passport.module-definition';
 import { memoize } from './utils/memoize.util';
 
 export type IAuthGuard = CanActivate & {
   logIn<TRequest extends { logIn: Function } = any>(
     request: TRequest
   ): Promise<void>;
-  handleRequest<TUser = any>(err, user, info, context: ExecutionContext, status?): TUser;
-  getAuthenticateOptions(context: ExecutionContext): IAuthModuleOptions | undefined;
+  handleRequest<TUser = any>(
+    err,
+    user,
+    info,
+    context: ExecutionContext,
+    status?
+  ): TUser;
+  getAuthenticateOptions(
+    context: ExecutionContext
+  ): PassportModuleOptions | undefined;
 };
 export const AuthGuard: (type?: string | string[]) => Type<IAuthGuard> =
   memoize(createAuthGuard);
@@ -32,10 +38,10 @@ const NO_STRATEGY_ERROR = `In order to use "defaultStrategy", please, ensure to 
 function createAuthGuard(type?: string | string[]): Type<CanActivate> {
   class MixinAuthGuard<TUser = any> implements CanActivate {
     @Optional()
-    @Inject(AuthModuleOptions)
-    protected options: AuthModuleOptions = {};
+    @Inject(MODULE_OPTIONS_TOKEN)
+    protected options: PassportModuleOptions = {};
 
-    constructor(@Optional() options?: AuthModuleOptions) {
+    constructor(@Optional() options?: PassportModuleOptions) {
       this.options = options ?? this.options;
       if (!type && !this.options.defaultStrategy) {
         new Logger('AuthGuard').error(NO_STRATEGY_ERROR);
@@ -89,7 +95,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
 
     getAuthenticateOptions(
       context: ExecutionContext
-    ): Promise<IAuthModuleOptions> | IAuthModuleOptions | undefined {
+    ): Promise<PassportModuleOptions> | PassportModuleOptions | undefined {
       return undefined;
     }
   }
