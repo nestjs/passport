@@ -21,14 +21,22 @@ export type IAuthGuard = CanActivate & {
   logIn<TRequest extends { logIn: Function } = any>(
     request: TRequest
   ): Promise<void>;
-  handleRequest<TUser = any>(err, user, info, context: ExecutionContext, status?): TUser;
-  getAuthenticateOptions(context: ExecutionContext): IAuthModuleOptions | undefined;
+  handleRequest<TUser = any>(
+    err,
+    user,
+    info,
+    context: ExecutionContext,
+    status?
+  ): TUser;
+  getAuthenticateOptions(
+    context: ExecutionContext
+  ): IAuthModuleOptions | undefined;
 };
 export const AuthGuard: (type?: string | string[]) => Type<IAuthGuard> =
   memoize(createAuthGuard);
 
 const NO_STRATEGY_ERROR = `In order to use "defaultStrategy", please, ensure to import PassportModule in each place where AuthGuard() is being used. Otherwise, passport won't work correctly.`;
-const AUTH_LOGGER = new Logger('AuthGuard');
+const authLogger = new Logger('AuthGuard');
 
 function createAuthGuard(type?: string | string[]): Type<CanActivate> {
   class MixinAuthGuard<TUser = any> implements CanActivate {
@@ -39,7 +47,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
     constructor(@Optional() options?: AuthModuleOptions) {
       this.options = options ?? this.options;
       if (!type && !this.options.defaultStrategy) {
-        AUTH_LOGGER.error(NO_STRATEGY_ERROR);
+        authLogger.error(NO_STRATEGY_ERROR);
       }
     }
 
@@ -83,7 +91,7 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
 
     handleRequest(err, user, info, context, status): TUser {
       if (err || !user) {
-        AUTH_LOGGER.error(info);
+        authLogger.error(info);
         throw err || new UnauthorizedException();
       }
       return user;
