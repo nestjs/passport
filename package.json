@@ -35,7 +35,7 @@
     "@nestjs/testing": "9.3.9",
     "@types/jest": "29.4.0",
     "@types/node": "18.13.0",
-    "@types/passport": "1.0.11",
+    "@types/passport": "1.0.12",
     "@types/passport-jwt": "3.0.8",
     "@types/passport-local": "1.0.35",
     "@typescript-eslint/eslint-plugin": "5.52.0",
