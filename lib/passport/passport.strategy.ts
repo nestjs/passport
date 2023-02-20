@@ -3,7 +3,8 @@ import { Type } from '../interfaces';
 
 export function PassportStrategy<T extends Type<any> = any>(
   Strategy: T,
-  name?: string | undefined
+  name?: string | undefined,
+  callbackArity?: true | Number
 ): {
   new (...args): InstanceType<T>;
 } {
@@ -24,17 +25,17 @@ export function PassportStrategy<T extends Type<any> = any>(
           done(err, null);
         }
       };
-      /**
-       * Commented out due to the regression it introduced
-       * Read more here: https://github.com/nestjs/passport/issues/446
 
+      if (callbackArity !== undefined) {
         const validate = new.target?.prototype?.validate;
+        const arity =
+          callbackArity === true ? validate.length + 1 : callbackArity;
         if (validate) {
           Object.defineProperty(callback, 'length', {
-            value: validate.length + 1
+            value: arity
           });
         }
-      */
+      }
       super(...args, callback);
 
       const passportInstance = this.getPassportInstance();
