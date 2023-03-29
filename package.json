@@ -30,7 +30,7 @@
     "@commitlint/config-angular": "17.4.4",
     "@nestjs/common": "9.3.12",
     "@nestjs/core": "9.3.12",
-    "@nestjs/jwt": "10.0.2",
+    "@nestjs/jwt": "10.0.3",
     "@nestjs/platform-express": "9.3.12",
     "@nestjs/testing": "9.3.12",
     "@types/jest": "29.5.0",
