@@ -90,6 +90,9 @@ function createAuthGuard(type?: string | string[]): Type<CanActivate> {
     }
 
     handleRequest(err, user, info, context, status): TUser {
+      if (info) {
+        authLogger.debug(info)
+      }
       if (err || !user) {
         throw err || new UnauthorizedException();
       }
