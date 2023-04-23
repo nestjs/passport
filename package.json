@@ -46,7 +46,7 @@
     "husky": "8.0.3",
     "jest": "29.5.0",
     "lint-staged": "13.2.1",
-    "pactum": "3.3.3",
+    "pactum": "3.4.0",
     "passport": "0.6.0",
     "passport-jwt": "4.0.1",
     "passport-local": "1.0.0",
