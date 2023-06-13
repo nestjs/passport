@@ -17,12 +17,12 @@ jobs:
   build:
     working_directory: ~/nest
     docker:
-      - image: circleci/node:12
+      - image: cimg/node:20.3
     steps:
       - checkout
       - run:
           name: Update NPM version
-          command: 'sudo npm install -g npm@latest'
+          command: 'sudo npm install -g npm@^8'
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
@@ -34,7 +34,10 @@ jobs:
             - ./node_modules
       - run:
           name: Build
-          command: npm run build    
+          command: npm run build
+      - run:
+          name: Test
+          command: npm run test
 
 workflows:
   version: 2
