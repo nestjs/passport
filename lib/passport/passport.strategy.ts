@@ -4,7 +4,7 @@ import { Type } from '../interfaces';
 export function PassportStrategy<T extends Type<any> = any>(
   Strategy: T,
   name?: string | undefined,
-  callbackArity?: true | Number
+  callbackArity?: true | number
 ): {
   new (...args): InstanceType<T>;
 } {
