@@ -31,14 +31,16 @@ export type IAuthGuard = CanActivate & {
   getAuthenticateOptions(
     context: ExecutionContext
   ): IAuthModuleOptions | undefined;
+  getRequest<T = any>(context: ExecutionContext): T;
 };
+
 export const AuthGuard: (type?: string | string[]) => Type<IAuthGuard> =
   memoize(createAuthGuard);
 
 const NO_STRATEGY_ERROR = `In order to use "defaultStrategy", please, ensure to import PassportModule in each place where AuthGuard() is being used. Otherwise, passport won't work correctly.`;
 const authLogger = new Logger('AuthGuard');
 
-function createAuthGuard(type?: string | string[]): Type<CanActivate> {
+function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
   class MixinAuthGuard<TUser = any> implements CanActivate {
     @Optional()
     @Inject(AuthModuleOptions)
