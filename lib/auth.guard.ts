@@ -105,7 +105,7 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
     }
   }
   const guard = mixin(MixinAuthGuard);
-  return guard;
+  return guard as Type<IAuthGuard>;
 }
 
 const createPassportContext =
