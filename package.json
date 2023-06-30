@@ -55,7 +55,7 @@
     "release-it": "15.11.0",
     "rimraf": "5.0.1",
     "rxjs": "7.8.1",
-    "ts-jest": "29.1.0",
+    "ts-jest": "29.1.1",
     "typescript": "5.1.6"
   },
   "lint-staged": {
