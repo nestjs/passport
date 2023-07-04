@@ -44,7 +44,7 @@
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "2.27.5",
     "husky": "8.0.3",
-    "jest": "29.5.0",
+    "jest": "29.6.0",
     "lint-staged": "13.2.3",
     "pactum": "3.4.1",
     "passport": "0.6.0",
