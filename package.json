@@ -45,7 +45,7 @@
     "eslint-plugin-import": "2.28.0",
     "husky": "8.0.3",
     "jest": "29.6.2",
-    "lint-staged": "13.2.3",
+    "lint-staged": "13.3.0",
     "pactum": "3.4.1",
     "passport": "0.6.0",
     "passport-jwt": "4.0.1",
