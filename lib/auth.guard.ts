@@ -87,7 +87,7 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
     ): Promise<void> {
       const user = request[this.options.property || defaultOptions.property];
       await new Promise<void>((resolve, reject) =>
-        request.logIn(user, (err) => (err ? reject(err) : resolve()))
+        request.logIn(user, this.options, (err) => (err ? reject(err) : resolve()))
       );
     }
 
