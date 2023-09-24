@@ -37,7 +37,7 @@
     "@types/node": "18.17.19",
     "@types/passport": "1.0.13",
     "@types/passport-jwt": "3.0.10",
-    "@types/passport-local": "1.0.35",
+    "@types/passport-local": "1.0.36",
     "@typescript-eslint/eslint-plugin": "6.7.2",
     "@typescript-eslint/parser": "6.7.2",
     "eslint": "8.50.0",
