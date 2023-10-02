@@ -1,12 +1,12 @@
 import * as passport from 'passport';
-import { Type } from '../interfaces';
+import { Type, WithoutCallback} from '../interfaces';
 
 export function PassportStrategy<T extends Type<any> = any>(
   Strategy: T,
   name?: string | undefined,
   callbackArity?: true | number
 ): {
-  new (...args): InstanceType<T>;
+  new (...args: WithoutCallback<ConstructorParameters<T>>): InstanceType<T>;
 } {
   abstract class MixinStrategy extends Strategy {
     abstract validate(...args: any[]): any;
