@@ -33,7 +33,7 @@
     "@nestjs/jwt": "10.2.0",
     "@nestjs/platform-express": "10.2.10",
     "@nestjs/testing": "10.2.10",
-    "@types/jest": "29.5.9",
+    "@types/jest": "29.5.10",
     "@types/node": "20.9.3",
     "@types/passport": "1.0.16",
     "@types/passport-jwt": "3.0.13",
