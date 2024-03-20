@@ -5,6 +5,7 @@ import { AppController } from '../common/app.controller';
 import { AppService } from '../common/app.service';
 import { JwtStrategy } from '../common/jwt.strategy';
 import { LocalStrategy } from '../common/local.strategy';
+import { CustomStrategy } from '../common/custom.strategy';
 
 @Module({
   controllers: [AppController],
@@ -12,8 +13,12 @@ import { LocalStrategy } from '../common/local.strategy';
     JwtModule.register({
       secret: 's3cr3t'
     }),
-    PassportModule.register({})
+    PassportModule.register({
+      autenticateOptions: {
+        state: 'custom-state-from-register'
+      }
+    })
   ],
-  providers: [AppService, LocalStrategy, JwtStrategy]
+  providers: [AppService, CustomStrategy, LocalStrategy, JwtStrategy]
 })
 export class AppModule {}

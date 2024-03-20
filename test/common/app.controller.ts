@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../../lib';
 
 import { AppService } from './app.service';
+import { CustomGuard } from './custom.strategy';
 
 @Controller()
 export class AppController {
@@ -24,5 +25,17 @@ export class AppController {
       username: body.username,
       id: req.user.id
     });
+  }
+
+  @UseGuards(AuthGuard('custom'))
+  @Get('custom-guard')
+  getCustom(@Req() req: any) {
+    return req.user.state;
+  }
+
+  @UseGuards(CustomGuard)
+  @Get('custom-guard-with-state')
+  getCustomWithState(@Req() req: any) {
+    return req.user.state;
   }
 }

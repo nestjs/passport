@@ -1,9 +1,11 @@
 import { ModuleMetadata, Type } from '@nestjs/common';
+import { AuthenticateOptions } from 'passport';
 
 export interface IAuthModuleOptions<T = any> {
   defaultStrategy?: string | string[];
   session?: boolean;
   property?: string;
+  autenticateOptions?: AuthenticateOptions;
   [key: string]: any;
 }
 
@@ -25,4 +27,5 @@ export class AuthModuleOptions implements IAuthModuleOptions {
   defaultStrategy?: string | string[];
   session?: boolean;
   property?: string;
+  autenticateOptions?: AuthenticateOptions;
 }

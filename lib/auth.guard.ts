@@ -30,7 +30,7 @@ export type IAuthGuard = CanActivate & {
   ): TUser;
   getAuthenticateOptions(
     context: ExecutionContext
-  ): IAuthModuleOptions | undefined;
+  ): Promise<passport.AuthenticateOptions> | passport.AuthenticateOptions | undefined;
   getRequest(context: ExecutionContext): any;
 };
 
@@ -42,21 +42,24 @@ const authLogger = new Logger('AuthGuard');
 
 function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
   class MixinAuthGuard<TUser = any> implements CanActivate {
-    @Optional()
-    @Inject(AuthModuleOptions)
-    protected options: AuthModuleOptions = {};
+    protected options: IAuthModuleOptions;
 
-    constructor(@Optional() options?: AuthModuleOptions) {
-      this.options = options ?? this.options;
+    constructor(
+      @Optional()
+      @Inject(AuthModuleOptions)
+      options?: IAuthModuleOptions
+    ) {
+      this.options = options ?? {};
       if (!type && !this.options.defaultStrategy) {
         authLogger.error(NO_STRATEGY_ERROR);
       }
     }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-      const options = {
-        ...defaultOptions,
-        ...this.options,
+      const options = this.options;
+      const authenticateOptions = {
+        ...defaultOptions.autenticateOptions,
+        ...options.autenticateOptions,
         ...(await this.getAuthenticateOptions(context))
       };
       const [request, response] = [
@@ -66,7 +69,7 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
       const passportFn = createPassportContext(request, response);
       const user = await passportFn(
         type || this.options.defaultStrategy,
-        options,
+        authenticateOptions,
         (err, user, info, status) =>
           this.handleRequest(err, user, info, context, status)
       );
@@ -102,7 +105,7 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
 
     getAuthenticateOptions(
       context: ExecutionContext
-    ): Promise<IAuthModuleOptions> | IAuthModuleOptions | undefined {
+    ): Promise<passport.AuthenticateOptions> | passport.AuthenticateOptions | undefined {
       return undefined;
     }
   }
