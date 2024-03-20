@@ -14,7 +14,7 @@ import { CustomStrategy } from '../common/custom.strategy';
       secret: 's3cr3t'
     }),
     PassportModule.register({
-      autenticateOptions: {
+      authenticateOptions: {
         state: 'custom-state-from-register'
       }
     })

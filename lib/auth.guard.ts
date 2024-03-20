@@ -58,8 +58,8 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
     async canActivate(context: ExecutionContext): Promise<boolean> {
       const options = this.options;
       const authenticateOptions = {
-        ...defaultOptions.autenticateOptions,
-        ...options.autenticateOptions,
+        ...defaultOptions.authenticateOptions,
+        ...options.authenticateOptions,
         ...(await this.getAuthenticateOptions(context))
       };
       const [request, response] = [
