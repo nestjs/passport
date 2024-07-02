@@ -1,15 +1,26 @@
 import * as passport from 'passport';
 import { Type } from '../interfaces';
 
-export function PassportStrategy<T extends Type<any> = any>(
+abstract class PassportStrategyMixin<TValidationResult> {
+  abstract validate(...args: any[]): TValidationResult | Promise<TValidationResult>;
+}
+
+export function PassportStrategy<
+  T extends Type<any> = any,
+  TUser = unknown,
+  TValidationResult = TUser | false | null,
+>(
   Strategy: T,
   name?: string | undefined,
-  callbackArity?: true | number
+  callbackArity?: true | number,
 ): {
-  new (...args): InstanceType<T>;
+  new (...args): InstanceType<T> & PassportStrategyMixin<TValidationResult>;
 } {
-  abstract class MixinStrategy extends Strategy {
-    abstract validate(...args: any[]): any;
+  abstract class StrategyWithMixin extends Strategy implements PassportStrategyMixin<TValidationResult>
+  {
+    abstract validate(
+      ...args: any[]
+    ): TValidationResult | Promise<TValidationResult>;
 
     constructor(...args: any[]) {
       const callback = async (...params: any[]) => {
@@ -50,5 +61,5 @@ export function PassportStrategy<T extends Type<any> = any>(
       return passport;
     }
   }
-  return MixinStrategy;
+  return StrategyWithMixin;
 }
