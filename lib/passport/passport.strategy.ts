@@ -6,7 +6,7 @@ export function PassportStrategy<T extends Type<any> = any>(
   name?: string | undefined,
   callbackArity?: true | number
 ): {
-  new (...args): InstanceType<T>;
+  new (...args): InstanceType<T> & { getPassportInstance(): passport.PassportStatic };
 } {
   abstract class MixinStrategy extends Strategy {
     abstract validate(...args: any[]): any;
