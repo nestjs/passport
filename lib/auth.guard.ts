@@ -6,8 +6,10 @@ import {
   Logger,
   mixin,
   Optional,
-  UnauthorizedException
+  UnauthorizedException,
+  ContextType
 } from '@nestjs/common';
+import { loadPackage } from '@nestjs/common/utils/load-package.util';
 import * as passport from 'passport';
 import { Type } from './interfaces';
 import {
@@ -75,6 +77,14 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
     }
 
     getRequest<T = any>(context: ExecutionContext): T {
+      if (context.getType<ContextType | 'graphql'>() === 'graphql') {
+        const { GqlExecutionContext } = loadPackage(
+          '@nestjs/graphql',
+          'AuthGuard'
+        );
+        return GqlExecutionContext.create(context).getContext().req;
+      }
+
       return context.switchToHttp().getRequest();
     }
 
