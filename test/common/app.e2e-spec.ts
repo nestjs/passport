@@ -34,6 +34,7 @@ describe.each`
         .expectBody({ message: 'Hello secure world!' });
     });
   });
+
   describe('UnauthenticatedFlow', () => {
     it('should return a 401 for an invalid login', async () => {
       await spec()
@@ -46,6 +47,66 @@ describe.each`
         .get('/private')
         .withHeaders('Authorization', 'Bearer not-a-jwt')
         .expectStatus(401);
+    });
+  });
+
+  describe('Custom strategy', () => {
+    it('should be able to hit the custom route and get the user "state" attribute', async () => {
+      await spec()
+        .get('/custom-guard-with-state')
+        .expectBody('custom-state-from-guard');
+    });
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+});
+
+describe('Passport Module with register() specific', () => {
+  let app: INestApplication;
+
+  beforeAll(async () => {
+    const modRef = await Test.createTestingModule({
+      imports: [WithRegisterModule]
+    }).compile();
+    app = modRef.createNestApplication();
+    await app.listen(0);
+    const url = (await app.getUrl()).replace('[::1]', 'localhost');
+    request.setBaseUrl(url);
+  });
+
+  describe('Custom strategy', () => {
+    it('should be able to hit the custom route and get the user "state" attribute', async () => {
+      await spec()
+        .get('/custom-guard')
+        .expectBody('custom-state-from-register');
+    });
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+});
+
+describe('Passport Module without register() specific', () => {
+  let app: INestApplication;
+
+  beforeAll(async () => {
+    const modRef = await Test.createTestingModule({
+      imports: [WithoutRegisterModule]
+    }).compile();
+    app = modRef.createNestApplication();
+    await app.listen(0);
+    const url = (await app.getUrl()).replace('[::1]', 'localhost');
+    request.setBaseUrl(url);
+  });
+
+  describe('Custom strategy', () => {
+    it('should be able to hit the custom route and get the user "state" attribute as empty', async () => {
+      await spec()
+        .get('/custom-guard')
+        .expectBody('');
     });
   });
 
