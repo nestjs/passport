@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
 import {
   CanActivate,
   ExecutionContext,
@@ -111,7 +112,8 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
 }
 
 const createPassportContext =
-  (request, response) => (type, options, callback: Function) =>
+  (request: any, response: any) =>
+  (type: string | string[], options: any, callback: Function) =>
     new Promise<void>((resolve, reject) =>
       passport.authenticate(type, options, (err, user, info, status) => {
         try {
@@ -120,5 +122,5 @@ const createPassportContext =
         } catch (err) {
           reject(err);
         }
-      })(request, response, (err) => (err ? reject(err) : resolve()))
+      })(request, response, (err: any) => (err ? reject(err) : resolve()))
     );
