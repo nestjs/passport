@@ -1,5 +1,5 @@
 import * as passport from 'passport';
-import { Type } from '../interfaces';
+import { Type, WithoutCallback} from '../interfaces';
 
 abstract class PassportStrategyMixin<TValidationResult> {
   abstract validate(...args: any[]): TValidationResult | Promise<TValidationResult>;
@@ -14,7 +14,7 @@ export function PassportStrategy<
   name?: string | undefined,
   callbackArity?: true | number,
 ): {
-  new (...args): InstanceType<T> & PassportStrategyMixin<TValidationResult>;
+  new (...args: WithoutCallback<ConstructorParameters<T>>): InstanceType<T> & PassportStrategyMixin<TValidationResult>;
 } {
   abstract class StrategyWithMixin extends Strategy implements PassportStrategyMixin<TValidationResult>
   {
