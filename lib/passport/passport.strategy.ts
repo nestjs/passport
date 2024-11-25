@@ -13,7 +13,7 @@ export function PassportStrategy<
   TValidationResult = TUser | false | null
 >(
   Strategy: T,
-  name?: string | undefined,
+  name?: string,
   callbackArity?: true | number
 ): {
   new (
