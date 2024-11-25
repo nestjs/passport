@@ -4,6 +4,4 @@ export interface Type<T = any> extends Function {
 
 export type WithoutCallback<T extends any[]> =
   // T extends any makes this distributive
-  T extends any ?
-    T extends [...infer U, any] ? U : T
-    : never;
+  T extends any ? (T extends [...infer U, any] ? U : T) : never;
