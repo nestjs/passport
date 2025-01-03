@@ -34,7 +34,7 @@
     "@nestjs/platform-express": "10.4.15",
     "@nestjs/testing": "10.4.15",
     "@types/jest": "29.5.14",
-    "@types/node": "22.10.4",
+    "@types/node": "22.10.5",
     "@types/passport": "1.0.17",
     "@types/passport-jwt": "4.0.1",
     "@types/passport-local": "1.0.38",
