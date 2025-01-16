@@ -1,6 +1,6 @@
 import { ModuleMetadata, Type } from '@nestjs/common';
 
-export interface IAuthModuleOptions<T = any> {
+export interface IAuthModuleOptions {
   defaultStrategy?: string | string[];
   session?: boolean;
   property?: string;
