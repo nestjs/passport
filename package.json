@@ -46,7 +46,7 @@
     "globals": "15.14.0",
     "husky": "9.1.7",
     "jest": "29.7.0",
-    "lint-staged": "15.4.0",
+    "lint-staged": "15.4.1",
     "pactum": "3.7.6",
     "passport": "0.7.0",
     "passport-jwt": "4.0.1",
