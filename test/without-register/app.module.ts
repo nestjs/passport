@@ -4,6 +4,7 @@ import { PassportModule } from '../../lib';
 import { AppController } from '../common/app.controller';
 import { AppService } from '../common/app.service';
 import { JwtStrategy } from '../common/jwt.strategy';
+import { LocalUnionDiscriminatorCheckStrategy } from '../common/local-union-discriminator-check.strategy';
 import { LocalStrategy } from '../common/local.strategy';
 
 @Module({
@@ -14,6 +15,11 @@ import { LocalStrategy } from '../common/local.strategy';
     }),
     PassportModule
   ],
-  providers: [AppService, LocalStrategy, JwtStrategy]
+  providers: [
+    AppService,
+    LocalStrategy,
+    LocalUnionDiscriminatorCheckStrategy,
+    JwtStrategy
+  ]
 })
 export class AppModule {}
