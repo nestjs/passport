@@ -44,4 +44,18 @@ export class AppService {
     }
     return user;
   }
+
+  findUserByCookieValue(cookieValue: string): {
+    id: string;
+    username: string;
+  } {
+    if (!cookieValue) {
+      return null;
+    }
+    const user = this.users.find((u) => u.id === cookieValue);
+    if (!user) {
+      return null;
+    }
+    return user;
+  }
 }
