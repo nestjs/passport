@@ -3,6 +3,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '../../lib';
 import { AppController } from '../common/app.controller';
 import { AppService } from '../common/app.service';
+import { CookieStrategy } from '../common/cookie.strategy';
 import { JwtStrategy } from '../common/jwt.strategy';
 import { LocalUnionDiscriminatorCheckStrategy } from '../common/local-union-discriminator-check.strategy';
 import { LocalStrategy } from '../common/local.strategy';
@@ -19,7 +20,8 @@ import { LocalStrategy } from '../common/local.strategy';
     AppService,
     LocalStrategy,
     LocalUnionDiscriminatorCheckStrategy,
-    JwtStrategy
+    JwtStrategy,
+    CookieStrategy
   ]
 })
 export class AppModule {}
