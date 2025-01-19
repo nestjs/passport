@@ -3,7 +3,7 @@ import { Type, WithoutCallback } from '../interfaces';
 
 type ExcludeUnknown<T> =
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-  T extends Array<infer I> ? ({} extends I & {} ? T : never) : T;
+  T extends Array<infer I> ? ({} extends I & {} ? never : T) : T;
 export type AllConstructorParameters<T> = ExcludeUnknown<
   T extends {
     new (...o: infer U): void;
