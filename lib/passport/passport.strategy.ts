@@ -58,6 +58,9 @@ abstract class PassportStrategyMixin<TValidationResult> {
   ): TValidationResult | Promise<TValidationResult>;
 }
 
+/**
+ * @publicApi
+ */
 export function PassportStrategy<
   T extends Type<any> = any,
   TUser = unknown,

@@ -1,5 +1,8 @@
 import { ModuleMetadata, Type } from '@nestjs/common';
 
+/**
+ * @publicApi
+ */
 export interface IAuthModuleOptions {
   defaultStrategy?: string | string[];
   session?: boolean;
@@ -7,10 +10,16 @@ export interface IAuthModuleOptions {
   [key: string]: any;
 }
 
+/**
+ * @publicApi
+ */
 export interface AuthOptionsFactory {
   createAuthOptions(): Promise<IAuthModuleOptions> | IAuthModuleOptions;
 }
 
+/**
+ * @publicApi
+ */
 export interface AuthModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
   useExisting?: Type<AuthOptionsFactory>;
@@ -21,6 +30,9 @@ export interface AuthModuleAsyncOptions
   inject?: any[];
 }
 
+/**
+ * @publicApi
+ */
 export class AuthModuleOptions implements IAuthModuleOptions {
   defaultStrategy?: string | string[];
   session?: boolean;
