@@ -6,6 +6,9 @@ import {
   IAuthModuleOptions
 } from './interfaces/auth-module.options';
 
+/**
+ * @publicApi
+ */
 @Module({})
 export class PassportModule {
   static register(options: IAuthModuleOptions): DynamicModule {
