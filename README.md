@@ -33,7 +33,7 @@ $ npm i --save @nestjs/passport passport
 
 ## Quick Start
 
-[Overview & Tutorial](https://docs.nestjs.com/techniques/authentication)
+[Overview & Tutorial](https://docs.nestjs.com/recipes/passport)
 
 ## Support
 
