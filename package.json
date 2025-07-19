@@ -42,7 +42,7 @@
     "@types/passport-local": "1.0.38",
     "eslint": "9.31.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-prettier": "5.5.1",
+    "eslint-plugin-prettier": "5.5.3",
     "globals": "16.3.0",
     "husky": "9.1.7",
     "jest": "30.0.4",
