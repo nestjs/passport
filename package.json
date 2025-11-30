@@ -52,7 +52,7 @@
     "passport-cookie": "^1.0.9",
     "passport-jwt": "4.0.1",
     "passport-local": "1.0.0",
-    "prettier": "3.7.2",
+    "prettier": "3.7.3",
     "reflect-metadata": "0.2.2",
     "release-it": "19.0.6",
     "rimraf": "6.1.2",
