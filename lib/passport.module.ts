@@ -37,8 +37,8 @@ export class PassportModule {
     return [
       this.createAsyncOptionsProvider(options),
       {
-        provide: options.useClass,
-        useClass: options.useClass
+        provide: options.useClass!,
+        useClass: options.useClass!
       }
     ];
   }
@@ -57,7 +57,7 @@ export class PassportModule {
       provide: AuthModuleOptions,
       useFactory: async (optionsFactory: AuthOptionsFactory) =>
         await optionsFactory.createAuthOptions(),
-      inject: [options.useExisting || options.useClass]
+      inject: [options.useExisting || options.useClass!]
     };
   }
 }

@@ -69,7 +69,7 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
       ];
       const passportFn = createPassportContext(request, response);
       const user = await passportFn(
-        type || this.options.defaultStrategy,
+        type || this.options.defaultStrategy!,
         options,
         (err, user, info, status) =>
           this.handleRequest(err, user, info, context, status)
