@@ -4,9 +4,6 @@
   "description": "Nest - modern, fast, powerful node.js web framework (@passport)",
   "author": "Kamil Mysliwiec",
   "license": "MIT",
-  "engines": {
-    "node": ">=24"
-  },
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"lib/**/*.ts\"",
