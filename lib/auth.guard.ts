@@ -10,13 +10,13 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import * as passport from 'passport';
-import { Type } from './interfaces';
+import { Type } from './interfaces/index.js';
 import {
   AuthModuleOptions,
   IAuthModuleOptions
-} from './interfaces/auth-module.options';
-import { defaultOptions } from './options';
-import { memoize } from './utils/memoize.util';
+} from './interfaces/auth-module.options.js';
+import { defaultOptions } from './options.js';
+import { memoize } from './utils/memoize.util.js';
 
 export type IAuthGuard = CanActivate & {
   logIn<TRequest extends { logIn: Function } = any>(
