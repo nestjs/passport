@@ -86,7 +86,7 @@ export function PassportStrategy<
     constructor(...args: any[]) {
       const callback = async (...params: any[]) => {
         const lastParamIndex = params.length - 1;
-        const done = params[doneIndex ? doneIndex : lastParamIndex];
+        const done = params[doneIndex ?? lastParamIndex];
 
         if (typeof done !== 'function')
           throw new Error(
