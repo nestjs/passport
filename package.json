@@ -41,7 +41,7 @@
     "@types/passport-local": "1.0.38",
     "@vitest/coverage-v8": "^4.1.4",
     "husky": "9.1.7",
-    "lint-staged": "17.0.4",
+    "lint-staged": "17.0.5",
     "oxlint": "^1.60.0",
     "pactum": "3.9.1",
     "passport": "0.7.0",
