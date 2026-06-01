@@ -2,6 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { spec, request } from 'pactum';
 import { describe, it, beforeAll, afterAll, expect } from 'vitest';
+import { OptionsCheckModule } from '../options-check/options-check.module';
 import { AppModule as WithRegisterModule } from '../with-register/app.module';
 import { AppModule as WithoutRegisterModule } from '../without-register/app.module';
 
@@ -48,6 +49,35 @@ describe.each`
         .withHeaders('Authorization', 'Bearer not-a-jwt')
         .expectStatus(401);
     });
+  });
+
+  afterAll(async () => {
+    await app.close();
+  });
+});
+
+describe('Passport authenticate options', () => {
+  let app: INestApplication;
+
+  beforeAll(async () => {
+    const modRef = await Test.createTestingModule({
+      imports: [OptionsCheckModule]
+    }).compile();
+    app = modRef.createNestApplication();
+    await app.listen(0);
+    const url = (await app.getUrl()).replace('[::1]', 'localhost');
+    request.setBaseUrl(url);
+  });
+
+  it('should not pass module-only options to the strategy', async () => {
+    await spec()
+      .get('/options-check')
+      .expectStatus(200)
+      .expectBody({
+        account: { id: 'account-1' },
+        authInfo: { receivedSessionOption: false },
+        user: null
+      });
   });
 
   afterAll(async () => {

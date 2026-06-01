@@ -31,7 +31,7 @@ export type IAuthGuard = CanActivate & {
   ): TUser;
   getAuthenticateOptions(
     context: ExecutionContext
-  ): IAuthModuleOptions | undefined;
+  ): Promise<IAuthModuleOptions> | IAuthModuleOptions | undefined;
   getRequest(context: ExecutionContext): any;
 };
 
@@ -70,7 +70,7 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
       const passportFn = createPassportContext(request, response);
       const user = await passportFn(
         type || this.options.defaultStrategy!,
-        options,
+        omitAuthModuleOptions(options),
         (err, user, info, status) =>
           this.handleRequest(err, user, info, context, status)
       );
@@ -112,6 +112,11 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
   }
   const guard = mixin(MixinAuthGuard);
   return guard as Type<IAuthGuard>;
+}
+
+function omitAuthModuleOptions(options: IAuthModuleOptions): any {
+  const { defaultStrategy, property, ...authenticateOptions } = options;
+  return authenticateOptions;
 }
 
 const createPassportContext =
