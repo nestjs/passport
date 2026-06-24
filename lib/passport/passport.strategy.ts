@@ -1,5 +1,5 @@
 import * as passport from 'passport';
-import { Type, WithoutCallback } from '../interfaces';
+import { Type, WithoutCallback } from '../interfaces/index.js';
 
 export type AllConstructorParameters<T> = T extends {
   new (...o: infer U): void;
