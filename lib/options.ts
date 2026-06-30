@@ -1,4 +1,5 @@
 export const defaultOptions = {
   session: false,
-  property: 'user'
+  property: 'user',
+  preserveExistingUserOnPass: false
 };

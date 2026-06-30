@@ -7,6 +7,7 @@ export interface IAuthModuleOptions {
   defaultStrategy?: string | string[];
   session?: boolean;
   property?: string;
+  preserveExistingUserOnPass?: boolean;
   [key: string]: any;
 }
 
@@ -20,8 +21,10 @@ export interface AuthOptionsFactory {
 /**
  * @publicApi
  */
-export interface AuthModuleAsyncOptions
-  extends Pick<ModuleMetadata, 'imports'> {
+export interface AuthModuleAsyncOptions extends Pick<
+  ModuleMetadata,
+  'imports'
+> {
   useExisting?: Type<AuthOptionsFactory>;
   useClass?: Type<AuthOptionsFactory>;
   useFactory?: (
@@ -37,4 +40,5 @@ export class AuthModuleOptions implements IAuthModuleOptions {
   defaultStrategy?: string | string[];
   session?: boolean;
   property?: string;
+  preserveExistingUserOnPass?: boolean;
 }

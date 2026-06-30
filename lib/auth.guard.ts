@@ -74,7 +74,10 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
         (err, user, info, status) =>
           this.handleRequest(err, user, info, context, status)
       );
-      request[options.property || defaultOptions.property] = user;
+      const property = options.property || defaultOptions.property;
+      if (user !== undefined || !options.preserveExistingUserOnPass) {
+        request[property] = user;
+      }
       return true;
     }
 
