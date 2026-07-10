@@ -3,6 +3,7 @@
   "version": "11.0.5",
   "description": "Nest - modern, fast, powerful node.js web framework (@passport)",
   "author": "Kamil Mysliwiec",
+  "type": "module",
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json",
@@ -19,10 +20,16 @@
     "prepare": "husky"
   },
   "files": [
-    "dist",
-    "index.js",
-    "index.d.ts"
+    "dist"
   ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "peerDependencies": {
     "@nestjs/common": "^10.0.0 || ^11.0.0",
     "passport": "^0.5.0 || ^0.6.0 || ^0.7.0"
