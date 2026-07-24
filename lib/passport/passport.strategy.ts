@@ -68,7 +68,8 @@ export function PassportStrategy<
 >(
   Strategy: T,
   name?: string,
-  callbackArity?: true | number
+  callbackArity?: true | number,
+  doneIndex?: number
 ): {
   new (
     ...args: WithoutCallback<AllConstructorParameters<T>>
@@ -84,7 +85,14 @@ export function PassportStrategy<
 
     constructor(...args: any[]) {
       const callback = async (...params: any[]) => {
-        const done = params[params.length - 1];
+        const lastParamIndex = params.length - 1;
+        const done = params[doneIndex ?? lastParamIndex];
+
+        if (typeof done !== 'function')
+          throw new Error(
+            'The done callback is not a function, did you pass in the correct index?'
+          );
+
         try {
           const validateResult = await this.validate(...params);
           if (Array.isArray(validateResult)) {
