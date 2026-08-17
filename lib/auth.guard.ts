@@ -9,7 +9,7 @@ import {
   Optional,
   UnauthorizedException
 } from '@nestjs/common';
-import * as passport from 'passport';
+import passport from 'passport';
 import { Type } from './interfaces/index.js';
 import {
   AuthModuleOptions,

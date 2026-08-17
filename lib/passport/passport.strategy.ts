@@ -1,4 +1,4 @@
-import * as passport from 'passport';
+import passport from 'passport';
 import { Type, WithoutCallback } from '../interfaces/index.js';
 
 export type AllConstructorParameters<T> = T extends {
