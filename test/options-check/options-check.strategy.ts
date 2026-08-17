@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as passport from 'passport';
+import passport from 'passport';
 
 @Injectable()
 export class OptionsCheckStrategy extends passport.Strategy {

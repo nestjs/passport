@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { PassportModule } from '../../lib';
-import { OptionsCheckController } from './options-check.controller';
-import { OptionsCheckStrategy } from './options-check.strategy';
+import { PassportModule } from '../../lib/index.js';
+import { OptionsCheckController } from './options-check.controller.js';
+import { OptionsCheckStrategy } from './options-check.strategy.js';
 
 @Module({
   controllers: [OptionsCheckController],

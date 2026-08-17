@@ -2,9 +2,9 @@ import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { spec, request } from 'pactum';
 import { describe, it, beforeAll, afterAll } from 'vitest';
-import { OptionsCheckModule } from '../options-check/options-check.module';
-import { AppModule as WithRegisterModule } from '../with-register/app.module';
-import { AppModule as WithoutRegisterModule } from '../without-register/app.module';
+import { OptionsCheckModule } from '../options-check/options-check.module.js';
+import { AppModule as WithRegisterModule } from '../with-register/app.module.js';
+import { AppModule as WithoutRegisterModule } from '../without-register/app.module.js';
 
 describe.each`
   AppModule                | RegisterUse

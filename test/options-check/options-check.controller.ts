@@ -1,5 +1,5 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '../../lib';
+import { AuthGuard } from '../../lib/index.js';
 
 @Controller()
 export class OptionsCheckController {
