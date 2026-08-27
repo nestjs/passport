@@ -1,6 +1,6 @@
 {
   "name": "@nestjs/passport",
-  "version": "11.0.5",
+  "version": "12.0.0",
   "description": "Nest - modern, fast, powerful node.js web framework (@passport)",
   "author": "Kamil Mysliwiec",
   "type": "module",
