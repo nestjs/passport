@@ -4,7 +4,7 @@ import {
   AuthModuleOptions,
   AuthOptionsFactory,
   IAuthModuleOptions
-} from './interfaces/auth-module.options';
+} from './interfaces/auth-module.options.js';
 
 /**
  * @publicApi

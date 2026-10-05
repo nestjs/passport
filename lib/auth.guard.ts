@@ -9,14 +9,14 @@ import {
   Optional,
   UnauthorizedException
 } from '@nestjs/common';
-import * as passport from 'passport';
-import { Type } from './interfaces';
+import passport from 'passport';
+import { Type } from './interfaces/index.js';
 import {
   AuthModuleOptions,
   IAuthModuleOptions
-} from './interfaces/auth-module.options';
-import { defaultOptions } from './options';
-import { memoize } from './utils/memoize.util';
+} from './interfaces/auth-module.options.js';
+import { defaultOptions } from './options.js';
+import { memoize } from './utils/memoize.util.js';
 
 export type IAuthGuard = CanActivate & {
   logIn<TRequest extends { logIn: Function } = any>(
@@ -31,8 +31,16 @@ export type IAuthGuard = CanActivate & {
   ): TUser;
   getAuthenticateOptions(
     context: ExecutionContext
-  ): IAuthModuleOptions | undefined;
+  ):
+    | Promise<AuthGuardAuthenticateOptions>
+    | AuthGuardAuthenticateOptions
+    | undefined;
   getRequest(context: ExecutionContext): any;
+};
+
+export type AuthGuardAuthenticateOptions = passport.AuthenticateOptions & {
+  defaultStrategy?: never;
+  [key: string]: any;
 };
 
 /**
@@ -67,15 +75,18 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
         this.getRequest(context),
         this.getResponse(context)
       ];
-      const passportFn = createPassportContext(request, response);
+      let isPassThrough = false;
+      const passportFn = createPassportContext(request, response, () => {
+        isPassThrough = true;
+      });
       const user = await passportFn(
         type || this.options.defaultStrategy!,
-        options,
+        omitAuthModuleOptions(options),
         (err, user, info, status) =>
           this.handleRequest(err, user, info, context, status)
       );
       const property = options.property || defaultOptions.property;
-      if (user !== undefined || !options.preserveExistingUserOnPass) {
+      if (!isPassThrough || !options.preserveExistingUserOnPass) {
         request[property] = user;
       }
       return true;
@@ -109,7 +120,10 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
 
     getAuthenticateOptions(
       context: ExecutionContext
-    ): Promise<IAuthModuleOptions> | IAuthModuleOptions | undefined {
+    ):
+      | Promise<AuthGuardAuthenticateOptions>
+      | AuthGuardAuthenticateOptions
+      | undefined {
       return undefined;
     }
   }
@@ -117,8 +131,20 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
   return guard as Type<IAuthGuard>;
 }
 
+function omitAuthModuleOptions(
+  options: IAuthModuleOptions
+): AuthGuardAuthenticateOptions {
+  const {
+    defaultStrategy,
+    property,
+    preserveExistingUserOnPass,
+    ...authenticateOptions
+  } = options;
+  return authenticateOptions;
+}
+
 const createPassportContext =
-  (request: any, response: any) =>
+  (request: any, response: any, onPass: () => void) =>
   (type: string | string[], options: any, callback: Function) =>
     new Promise<void>((resolve, reject) =>
       passport.authenticate(type, options, (err, user, info, status) => {
@@ -128,5 +154,11 @@ const createPassportContext =
         } catch (err) {
           reject(err);
         }
-      })(request, response, (err: any) => (err ? reject(err) : resolve()))
+      })(request, response, (err: any) => {
+        if (err) {
+          return reject(err);
+        }
+        onPass();
+        resolve();
+      })
     );

@@ -1,2 +1,2 @@
-export * from './auth-module.options';
-export * from './type.interface';
+export * from './auth-module.options.js';
+export * from './type.interface.js';
