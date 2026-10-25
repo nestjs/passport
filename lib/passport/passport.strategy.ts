@@ -100,8 +100,10 @@ export function PassportStrategy<
       if (callbackArity !== undefined) {
         const validate = new.target?.prototype?.validate;
         const arity =
-          callbackArity === true ? validate.length + 1 : callbackArity;
-        if (validate) {
+          callbackArity === true
+            ? validate && validate.length + 1
+            : callbackArity;
+        if (arity !== undefined) {
           Object.defineProperty(callback, 'length', {
             value: arity
           });
