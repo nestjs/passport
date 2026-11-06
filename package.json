@@ -1,7 +1,18 @@
 {
   "name": "@nestjs/passport",
   "version": "12.0.0",
-  "description": "Nest - modern, fast, powerful node.js web framework (@passport)",
+  "description": "Passport for NestJS: use Passport strategies, such as local, JWT and OAuth, as injectable providers and route guards.",
+  "keywords": [
+    "nestjs",
+    "nest",
+    "passport",
+    "authentication",
+    "auth",
+    "strategy",
+    "jwt",
+    "oauth",
+    "guard"
+  ],
   "author": "Kamil Mysliwiec",
   "type": "module",
   "license": "MIT",
