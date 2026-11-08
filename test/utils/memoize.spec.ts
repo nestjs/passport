@@ -20,6 +20,14 @@ describe('memoize', () => {
     expect(factory).toHaveBeenCalledWith(undefined);
   });
 
+  it('returns the same value for arrays with the same contents', () => {
+    const factory = vi.fn((k?: string[]) => ({ k }));
+    const m = memoize(factory);
+    expect(m(['a', 'b'])).toBe(m(['a', 'b']));
+    expect(m(['a', 'b'])).not.toBe(m(['b', 'a']));
+    expect(factory).toHaveBeenCalledTimes(2);
+  });
+
   it('does not confuse a key that shadows an Object.prototype member', () => {
     // Regression: with a plain-object cache, memoize('__proto__') returned
     // Object.prototype and memoize('constructor') returned Object.

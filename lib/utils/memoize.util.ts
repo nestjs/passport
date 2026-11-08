@@ -9,14 +9,17 @@ export function memoize<T extends (...args: any[]) => any>(
   // plain object, `'__proto__' in cache` is already `true` and
   // `cache['__proto__']` returns `Object.prototype`, so `AuthGuard('__proto__')`
   // would hand back the prototype instead of memoizing a fresh mixin.
-  const cache = new Map<unknown, ReturnType<T>>();
+  const cache = new Map<string, ReturnType<T>>();
   return (...args: Parameters<T>): ReturnType<T> => {
     const n = args[0] || defaultKey;
-    if (cache.has(n)) {
-      return cache.get(n)!;
+    // An array of strategy names is keyed by its contents, not its identity,
+    // so that every `AuthGuard(['a', 'b'])` call returns the same guard.
+    const key = String(n);
+    if (cache.has(key)) {
+      return cache.get(key)!;
     }
     const result = fn(n === defaultKey ? undefined : n);
-    cache.set(n, result);
+    cache.set(key, result);
     return result;
   };
 }
