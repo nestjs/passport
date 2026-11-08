@@ -3,15 +3,23 @@ const defaultKey = 'default';
 export function memoize<T extends (...args: any[]) => any>(
   fn: T
 ): (...args: Parameters<T>) => ReturnType<T> {
-  const cache: Record<string, ReturnType<T>> = {};
+  // A `Map` is used instead of a plain object so that a strategy name that
+  // collides with an inherited `Object.prototype` member (e.g. `__proto__`,
+  // `constructor`, `toString`) is treated as an ordinary cache key. With a
+  // plain object, `'__proto__' in cache` is already `true` and
+  // `cache['__proto__']` returns `Object.prototype`, so `AuthGuard('__proto__')`
+  // would hand back the prototype instead of memoizing a fresh mixin.
+  const cache = new Map<string, ReturnType<T>>();
   return (...args: Parameters<T>): ReturnType<T> => {
     const n = args[0] || defaultKey;
-    if (n in cache) {
-      return cache[n];
-    } else {
-      const result = fn(n === defaultKey ? undefined : n);
-      cache[n] = result;
-      return result;
+    // An array of strategy names is keyed by its contents, not its identity,
+    // so that every `AuthGuard(['a', 'b'])` call returns the same guard.
+    const key = String(n);
+    if (cache.has(key)) {
+      return cache.get(key)!;
     }
+    const result = fn(n === defaultKey ? undefined : n);
+    cache.set(key, result);
+    return result;
   };
 }
