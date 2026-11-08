@@ -13,8 +13,10 @@ export function memoize<T extends (...args: any[]) => any>(
   return (...args: Parameters<T>): ReturnType<T> => {
     const n = args[0] || defaultKey;
     // An array of strategy names is keyed by its contents, not its identity,
-    // so that every `AuthGuard(['a', 'b'])` call returns the same guard.
-    const key = String(n);
+    // so that every `AuthGuard(['a', 'b'])` call returns the same guard. It is
+    // serialized as JSON so that `AuthGuard(['a'])` does not share a key with
+    // `AuthGuard('a')`: passport reports failures differently for an array.
+    const key = Array.isArray(n) ? JSON.stringify(n) : String(n);
     if (cache.has(key)) {
       return cache.get(key)!;
     }
