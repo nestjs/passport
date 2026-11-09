@@ -28,6 +28,17 @@ describe('memoize', () => {
     expect(factory).toHaveBeenCalledTimes(2);
   });
 
+  it('does not share a value between a name and an array with that name', () => {
+    const factory = vi.fn((k?: string | string[]) => ({ k }));
+    const m = memoize(factory);
+    const single = m('a');
+    const array = m(['a']);
+    expect(array).not.toBe(single);
+    expect(array).toEqual({ k: ['a'] });
+    expect(m(['a,b'])).not.toBe(m(['a', 'b']));
+    expect(factory).toHaveBeenCalledTimes(4);
+  });
+
   it('does not confuse a key that shadows an Object.prototype member', () => {
     // Regression: with a plain-object cache, memoize('__proto__') returned
     // Object.prototype and memoize('constructor') returned Object.
