@@ -1,6 +1,6 @@
 {
   "name": "@nestjs/passport",
-  "version": "12.0.1",
+  "version": "12.0.2",
   "description": "Passport for NestJS: use Passport strategies, such as local, JWT and OAuth, as injectable providers and route guards.",
   "keywords": [
     "nestjs",
