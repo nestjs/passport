@@ -51,18 +51,18 @@ export const AuthGuard: (type?: string | string[]) => Type<IAuthGuard> =
 
 const NO_STRATEGY_ERROR = `In order to use "defaultStrategy", please, ensure to import PassportModule in each place where AuthGuard() is being used. Otherwise, passport won't work correctly.`;
 const authLogger = new Logger('AuthGuard');
-// Options returned by "getAuthenticateOptions" for a request, so that "logIn"
-// uses the same ones as the authentication of that request
-const authenticateOptionsByRequest = new WeakMap<
-  object,
-  AuthGuardAuthenticateOptions
->();
 
 function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
   class MixinAuthGuard<TUser = any> implements CanActivate {
     @Optional()
     @Inject(AuthModuleOptions)
     protected options: AuthModuleOptions = {};
+    // Options returned by "getAuthenticateOptions" for a request, so that
+    // "logIn" uses the same ones as the authentication of that request
+    private readonly authenticateOptionsByRequest = new WeakMap<
+      object,
+      AuthGuardAuthenticateOptions
+    >();
 
     constructor(@Optional() options?: AuthModuleOptions) {
       this.options = options ?? this.options;
@@ -83,7 +83,7 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
         this.getResponse(context)
       ];
       if (authenticateOptions && request && typeof request === 'object') {
-        authenticateOptionsByRequest.set(request, authenticateOptions);
+        this.authenticateOptionsByRequest.set(request, authenticateOptions);
       }
       const passportFn = createPassportContext(request, response);
       const user = await passportFn(
@@ -109,7 +109,7 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
     ): Promise<void> {
       const options = {
         ...this.options,
-        ...authenticateOptionsByRequest.get(request)
+        ...this.authenticateOptionsByRequest.get(request)
       };
       const user = request[options.property || defaultOptions.property];
       await new Promise<void>((resolve, reject) =>
