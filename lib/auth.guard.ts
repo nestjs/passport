@@ -51,6 +51,12 @@ export const AuthGuard: (type?: string | string[]) => Type<IAuthGuard> =
 
 const NO_STRATEGY_ERROR = `In order to use "defaultStrategy", please, ensure to import PassportModule in each place where AuthGuard() is being used. Otherwise, passport won't work correctly.`;
 const authLogger = new Logger('AuthGuard');
+// Options returned by "getAuthenticateOptions" for a request, so that "logIn"
+// uses the same ones as the authentication of that request
+const authenticateOptionsByRequest = new WeakMap<
+  object,
+  AuthGuardAuthenticateOptions
+>();
 
 function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
   class MixinAuthGuard<TUser = any> implements CanActivate {
@@ -66,15 +72,19 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
     }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
+      const authenticateOptions = await this.getAuthenticateOptions(context);
       const options = {
         ...defaultOptions,
         ...this.options,
-        ...(await this.getAuthenticateOptions(context))
+        ...authenticateOptions
       };
       const [request, response] = [
         this.getRequest(context),
         this.getResponse(context)
       ];
+      if (authenticateOptions && request && typeof request === 'object') {
+        authenticateOptionsByRequest.set(request, authenticateOptions);
+      }
       const passportFn = createPassportContext(request, response);
       const user = await passportFn(
         type || this.options.defaultStrategy!,
@@ -97,11 +107,13 @@ function createAuthGuard(type?: string | string[]): Type<IAuthGuard> {
     async logIn<TRequest extends { logIn: Function } = any>(
       request: TRequest
     ): Promise<void> {
-      const user = request[this.options.property || defaultOptions.property];
+      const options = {
+        ...this.options,
+        ...authenticateOptionsByRequest.get(request)
+      };
+      const user = request[options.property || defaultOptions.property];
       await new Promise<void>((resolve, reject) =>
-        request.logIn(user, this.options, (err) =>
-          err ? reject(err) : resolve()
-        )
+        request.logIn(user, options, (err) => (err ? reject(err) : resolve()))
       );
     }
 
